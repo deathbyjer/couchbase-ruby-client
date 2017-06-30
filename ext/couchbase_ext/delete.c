@@ -123,8 +123,8 @@ cb_bucket_delete(int argc, VALUE *argv, VALUE self)
 
     ctx = cb_context_alloc_common(bucket, proc, params.cmd.remove.num);
     ctx->quiet = params.cmd.remove.quiet;
-    err = lcb_remove(bucket->handle, (const void *)ctx,
-            params.cmd.remove.num, params.cmd.remove.ptr);
+    err = lcb_remove3(bucket->handle, (const void *)ctx,
+            (const lcb_CMDREMOVE *) &params.cmd.remove);
     cb_params_destroy(&params);
     exc = cb_check_error(err, "failed to schedule delete request", Qnil);
     if (exc != Qnil) {

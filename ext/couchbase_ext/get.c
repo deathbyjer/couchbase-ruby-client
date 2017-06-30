@@ -261,8 +261,8 @@ cb_bucket_get(int argc, VALUE *argv, VALUE self)
         err = lcb_get_replica(bucket->handle, (const void *)ctx,
                 params.cmd.get.num, params.cmd.get.ptr_gr);
     } else {
-        err = lcb_get(bucket->handle, (const void *)ctx,
-                params.cmd.get.num, params.cmd.get.ptr);
+        err = lcb_get3(bucket->handle, (const void *)ctx,
+                (const lcb_CMDGET *) &params.cmd.get);
     }
     cb_params_destroy(&params);
     exc = cb_check_error(err, "failed to schedule get request", Qnil);

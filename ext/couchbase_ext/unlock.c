@@ -135,8 +135,8 @@ cb_bucket_unlock(int argc, VALUE *argv, VALUE self)
     cb_params_build(&params);
     ctx = cb_context_alloc_common(bucket, proc, params.cmd.unlock.num);
     ctx->quiet = params.cmd.unlock.quiet;
-    err = lcb_unlock(bucket->handle, (const void *)ctx,
-            params.cmd.unlock.num, params.cmd.unlock.ptr);
+    err = lcb_unlock3(bucket->handle, (const void *)ctx,
+            (const lcb_CMDUNLOCK *) &params.cmd.unlock);
     cb_params_destroy(&params);
     exc = cb_check_error(err, "failed to schedule unlock request", Qnil);
     if (exc != Qnil) {
