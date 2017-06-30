@@ -146,7 +146,7 @@ cb_bucket_touch(int argc, VALUE *argv, VALUE self)
     ctx = cb_context_alloc_common(bucket, proc, params.cmd.touch.num);
     ctx->quiet = params.cmd.touch.quiet;
     err = lcb_touch3(bucket->handle, (const void *)ctx,
-            (const lcb_CMDTOUCH *) &params.cmd.touch);
+            (const lcb_CMDTOUCH *) params.cmd.touch.ptr);
     cb_params_destroy(&params);
     exc = cb_check_error(err, "failed to schedule touch request", Qnil);
     if (exc != Qnil) {

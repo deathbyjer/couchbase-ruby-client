@@ -142,7 +142,7 @@ cb_bucket_store(lcb_storage_t cmd, int argc, VALUE *argv, VALUE self)
     ctx->proc = proc;
     ctx->nqueries = params.cmd.store.num;
     err = lcb_store3(bucket->handle, (const void *)ctx,
-            (const lcb_CMDSTORE *) &params.cmd.store);
+            (const lcb_CMDSTORE *) params.cmd.store.ptr);
     cb_params_destroy(&params);
     exc = cb_check_error(err, "failed to schedule set request", Qnil);
     if (exc != Qnil) {
